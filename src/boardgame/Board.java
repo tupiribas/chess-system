@@ -7,7 +7,12 @@ public class Board {
 
 	public Board(int row, int column) {
 		if (row < 1 || column < 1) {
+
+			throw new BoardException("ERROR CREATING BOARD 001>>> "
+					+ "There most be at least row 1 and 1 column.");
+
 			throw new BoardException("ERROR CREATING BOARD 001>>> there most be at least row 1 and 1 column.");
+
 		}
 		this.row = row;
 		this.column = column;
