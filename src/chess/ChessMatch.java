@@ -7,11 +7,27 @@ import chess.pieces.King;
 import chess.pieces.Rook;
 
 public class ChessMatch {
+	/* TODO All "error" exceptions are listed in order 
+	 * of creation "Ex: Error 1, 2, 3, 4...: ". 
+	 * To facilitate the search for errors.*/
+	
+	private int turn;
+	private Color currentPlayer;
 	private Board board;
 
 	public ChessMatch() {
 		board = new Board(8, 8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetup();
+	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public Color getCurrentPlayer() {
+		return currentPlayer;
 	}
 
 	public ChessPiece[][] getPieces() {
@@ -21,7 +37,7 @@ public class ChessMatch {
 				mat[i][j] = (ChessPiece) board.piece(i, j);
 			}
 		}
-		
+
 		return mat;
 	}
 
@@ -30,14 +46,15 @@ public class ChessMatch {
 		validateSourcePosition(position);
 		return board.piece(position).possibleMoves();
 	}
-	
+
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source, target);
-		return (ChessPiece) capturedPiece;		
+		nextTurn();
+		return (ChessPiece) capturedPiece;
 	}
 
 	private Piece makeMove(Position source, Position target) {
@@ -49,19 +66,27 @@ public class ChessMatch {
 
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) {
-			throw new ChessException("Erro 7>>> There is no piece on source position");
+			throw new ChessException("Error 7>>> There is no piece on source position");
+		}
+		if (currentPlayer != ((ChessPiece) board.piece(position)).getColor()) {
+			throw new ChessException("Error 10>>> The chosen piece is not yours.");
 		}
 		if (!board.piece(position).isThereAnyPossibleMove()) {
-			throw new ChessException("Erro 8>>> There is no possible moves for the chosen piece");
+			throw new ChessException("Error 8>>> There is no possible moves for the chosen piece");
 		}
 	}
-	
+
 	private void validateTargetPosition(Position source, Position target) {
 		if (!board.piece(source).possibleMove(target)) {
-			throw new ChessException("Erro 9>>> The chosen piece can't move to target position");
+			throw new ChessException("Error 9>>> The chosen piece can't move to target position");
 		}
 	}
-	
+
+	private void nextTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+	}
+
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
 	}
