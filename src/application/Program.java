@@ -13,7 +13,7 @@ import chess.ChessPosition;
 public class Program {
 	
 	/* TODO All "error" exceptions are listed in order 
-	 * of creation "Ex: Error 1, 2, 3, 4...: ". 
+	 * of creation "Ex: Error cod.:1, cod.:2, cod.:3, cod.:4...: ". 
 	 * To facilitate the search for errors.*/
 	
 	public static void main(String[] args) {

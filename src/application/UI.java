@@ -45,7 +45,8 @@ public class UI {
 			int row = Integer.parseInt(s.substring(1));
 			return new ChessPosition(column, row);
 		} catch (RuntimeException ex) {
-			throw new InputMismatchException("ERRO READING CHESSPOSITION 6>>> " + "Valid values are from a1 to h8.");
+			throw new InputMismatchException(
+					"ERRO READING CHESSPOSITION cod.:6>>> " + "Valid values are from a1 to h8.");
 		}
 	}
 
@@ -67,6 +68,9 @@ public class UI {
 		System.out.println();
 		System.out.println("Turn: " + chessMatch.getTurn());
 		System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+		if (chessMatch.getCheck()) {
+			System.out.println("CHECK!" + chessMatch.getCheck());
+		}
 	}
 
 	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {

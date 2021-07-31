@@ -8,7 +8,7 @@ public class Board {
 	public Board(int row, int column) {
 		if (row < 1 || column < 1) {
 
-			throw new BoardException("ERROR CREATING BOARD CON001>>> " 
+			throw new BoardException("ERROR CREATING BOARD cod.:001>>> " 
 			+ "There most be at least row 1 and 1 column.");
 		}
 		this.row = row;
