@@ -17,8 +17,8 @@ import chess.pieces.Rook;
 public class ChessMatch {
 	/*
 	 * TODO All "error" exceptions are listed in order of creation
-	 * "Ex: Error cod.:1, cod.:2, cod.:3, cod.:4...: ". To facilitate the search for
-	 * errors.
+	 * 		"Ex: Error cod.:1, cod.:2, cod.:3, cod.:4...: ". To facilitate the search for
+	 * 		errors.
 	 */
 
 	private int turn;
@@ -78,7 +78,7 @@ public class ChessMatch {
 
 		if (testCheck(currentPlayer)) {
 			undoMove(source, target, capturedPiece);
-			throw new ChessException("You can't put yourself in check");
+			throw new ChessException("ERRO cod.:03>>> You can't put yourself in check");
 		}
 
 		// ChessPiece movedPiece = (ChessPiece) board.piece(target);
@@ -123,29 +123,29 @@ public class ChessMatch {
 
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) {
-			throw new ChessException("There is no piece on source position");
+			throw new ChessException("ERRO cod.:04>>> There is no piece on source position");
 		}
 		if (currentPlayer != ((ChessPiece) board.piece(position)).getColor()) {
-			throw new ChessException("The chosen piece is not yours");
+			throw new ChessException("ERRO cod.:05>>> The chosen piece is not yours");
 		}
 		if (!board.piece(position).isThereAnyPossibleMove()) {
-			throw new ChessException("There is no possible moves for the chosen piece");
+			throw new ChessException("ERRO cod.:06>>> There is no possible moves for the chosen piece");
 		}
 	}
 
 	private void validateTargetPosition(Position source, Position target) {
 		if (!board.piece(source).possibleMove(target)) {
-			throw new ChessException("The chosen piece can't move to target position");
+			throw new ChessException("ERRO cod.:07>>> The chosen piece can't move to target position");
 		}
 	}
 
 	private void nextTurn() {
 		turn++;
-		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.YELLOW : Color.WHITE;
 	}
 
 	private Color opponent(Color color) {
-		return (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
+		return (color == Color.WHITE) ? Color.YELLOW : Color.WHITE;
 	}
 
 	private ChessPiece king(Color color) {
@@ -156,7 +156,8 @@ public class ChessMatch {
 				return (ChessPiece) p;
 			}
 		}
-		throw new IllegalStateException("There is no " + color + " king on the board");
+		// Para essa exceção, deve-se analisar todas as classes!
+		throw new IllegalStateException("ERRO cod.:08>>> There is no " + color + " king on the board");
 	}
 
 	private boolean testCheck(Color color) {
@@ -221,22 +222,22 @@ public class ChessMatch {
 		placeNewPiece('g', 2, new Pawn(board, Color.WHITE));
 		placeNewPiece('h', 2, new Pawn(board, Color.WHITE));
 
-		placeNewPiece('a', 8, new Rook(board, Color.BLACK));
-		placeNewPiece('h', 8, new Rook(board, Color.BLACK));
-		placeNewPiece('d', 8, new Queen(board, Color.BLACK));
-		placeNewPiece('e', 8, new King(board, Color.BLACK));
-		placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
-		placeNewPiece('c', 8, new Bishop(board, Color.BLACK));
-		placeNewPiece('g', 8, new Knight(board, Color.BLACK));
-		placeNewPiece('b', 8, new Knight(board, Color.BLACK));
-		placeNewPiece('a', 7, new Pawn(board, Color.BLACK));
-		placeNewPiece('b', 7, new Pawn(board, Color.BLACK));
-		placeNewPiece('c', 7, new Pawn(board, Color.BLACK));
-		placeNewPiece('d', 7, new Pawn(board, Color.BLACK));
-		placeNewPiece('e', 7, new Pawn(board, Color.BLACK));
-		placeNewPiece('f', 7, new Pawn(board, Color.BLACK));
-		placeNewPiece('g', 7, new Pawn(board, Color.BLACK));
-		placeNewPiece('h', 7, new Pawn(board, Color.BLACK));
+		placeNewPiece('a', 8, new Rook(board, Color.YELLOW));
+		placeNewPiece('h', 8, new Rook(board, Color.YELLOW));
+		placeNewPiece('d', 8, new Queen(board, Color.YELLOW));
+		placeNewPiece('e', 8, new King(board, Color.YELLOW));
+		placeNewPiece('f', 8, new Bishop(board, Color.YELLOW));
+		placeNewPiece('c', 8, new Bishop(board, Color.YELLOW));
+		placeNewPiece('g', 8, new Knight(board, Color.YELLOW));
+		placeNewPiece('b', 8, new Knight(board, Color.YELLOW));
+		placeNewPiece('a', 7, new Pawn(board, Color.YELLOW));
+		placeNewPiece('b', 7, new Pawn(board, Color.YELLOW));
+		placeNewPiece('c', 7, new Pawn(board, Color.YELLOW));
+		placeNewPiece('d', 7, new Pawn(board, Color.YELLOW));
+		placeNewPiece('e', 7, new Pawn(board, Color.YELLOW));
+		placeNewPiece('f', 7, new Pawn(board, Color.YELLOW));
+		placeNewPiece('g', 7, new Pawn(board, Color.YELLOW));
+		placeNewPiece('h', 7, new Pawn(board, Color.YELLOW));
 	}
 
 }
