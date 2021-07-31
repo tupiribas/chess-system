@@ -21,12 +21,11 @@ public class Program {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		ChessMatch chessMatch = new ChessMatch();
-		List<ChessPiece> captured = new ArrayList<ChessPiece>();
+		List<ChessPiece> captured = new ArrayList<>();
 
-		while (!chessMatch.isCheck()) {
+		while (!chessMatch.isCheckMate()) {
 			try {
 				UI.clearScreen();
-				System.out.println("Jogo de xadrez");
 				UI.printMatch(chessMatch, captured);
 				System.out.println();
 				System.out.print("Source: ");
@@ -35,24 +34,25 @@ public class Program {
 				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
 				UI.clearScreen();
 				UI.printBoard(chessMatch.getPieces(), possibleMoves);
-
 				System.out.println();
+				
 				System.out.print("Target: ");
 				ChessPosition target = UI.readChessPosition(sc);
 
-				ChessPiece capturePiece = chessMatch.performChessMove(source, target);
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 
-				if (capturePiece != null) {
-					captured.add(capturePiece);
+				if (capturedPiece != null) {
+					captured.add(capturedPiece);
 				}
+				
 			} 
-			catch (ChessException ex) {
-				System.out.println(ex.getMessage());
+			catch (ChessException e) {
+				System.out.println(e.getMessage());
 				System.out.println("Type ENTER TO CONTINUE PLAYING.");
 				sc.nextLine();
-			} 
-			catch (InputMismatchException ex) {
-				System.out.println(ex.getMessage());
+			}
+			catch (InputMismatchException e) {
+				System.out.println(e.getMessage());
 				System.out.println("Type ENTER TO CONTINUE PLAYING.");
 				sc.nextLine();
 			}

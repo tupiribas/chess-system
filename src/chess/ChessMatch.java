@@ -11,6 +11,7 @@ import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
 import chess.pieces.Pawn;
+import chess.pieces.Queen;
 import chess.pieces.Rook;
 
 public class ChessMatch {
@@ -77,15 +78,16 @@ public class ChessMatch {
 
 		if (testCheck(currentPlayer)) {
 			undoMove(source, target, capturedPiece);
-			throw new ChessException("Erro cod.:12>>> You can't put yourself in check!");
+			throw new ChessException("You can't put yourself in check");
 		}
+
+		// ChessPiece movedPiece = (ChessPiece) board.piece(target);
 
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 
 		if (testCheckMate(opponent(currentPlayer))) {
 			checkMate = true;
-		} 
-		else {
+		} else {
 			nextTurn();
 		}
 
@@ -95,15 +97,15 @@ public class ChessMatch {
 	private Piece makeMove(Position source, Position target) {
 		ChessPiece p = (ChessPiece) board.removePiece(source);
 		p.increaseMoveCount();
-		Piece capturePiece = board.removePiece(target);
+		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
 
-		if (capturePiece != null) {
-			piecesOnTheBoard.remove(capturePiece);
-			capturedPieces.add(capturePiece);
+		if (capturedPiece != null) {
+			piecesOnTheBoard.remove(capturedPiece);
+			capturedPieces.add(capturedPiece);
 		}
 
-		return capturePiece;
+		return capturedPiece;
 	}
 
 	private void undoMove(Position source, Position target, Piece capturedPiece) {
@@ -116,23 +118,24 @@ public class ChessMatch {
 			capturedPieces.remove(capturedPiece);
 			piecesOnTheBoard.add(capturedPiece);
 		}
+
 	}
 
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) {
-			throw new ChessException("Error cod.:7>>> There is no piece on source position");
+			throw new ChessException("There is no piece on source position");
 		}
 		if (currentPlayer != ((ChessPiece) board.piece(position)).getColor()) {
-			throw new ChessException("Error cod.:10>>> The chosen piece is not yours.");
+			throw new ChessException("The chosen piece is not yours");
 		}
 		if (!board.piece(position).isThereAnyPossibleMove()) {
-			throw new ChessException("Error cod.:8>>> There is no possible moves for the chosen piece");
+			throw new ChessException("There is no possible moves for the chosen piece");
 		}
 	}
 
 	private void validateTargetPosition(Position source, Position target) {
 		if (!board.piece(source).possibleMove(target)) {
-			throw new ChessException("Error cod.:9>>> The chosen piece can't move to target position");
+			throw new ChessException("The chosen piece can't move to target position");
 		}
 	}
 
@@ -153,7 +156,7 @@ public class ChessMatch {
 				return (ChessPiece) p;
 			}
 		}
-		throw new IllegalStateException("ERROR cod.:11>>> There is no " + color + " king on the board.");
+		throw new IllegalStateException("There is no " + color + " king on the board");
 	}
 
 	private boolean testCheck(Color color) {
@@ -203,6 +206,7 @@ public class ChessMatch {
 	private void initialSetup() {
 		placeNewPiece('h', 1, new Rook(board, Color.WHITE));
 		placeNewPiece('a', 1, new Rook(board, Color.WHITE));
+		placeNewPiece('d', 1, new Queen(board, Color.WHITE));
 		placeNewPiece('e', 1, new King(board, Color.WHITE));
 		placeNewPiece('f', 1, new Bishop(board, Color.WHITE));
 		placeNewPiece('c', 1, new Bishop(board, Color.WHITE));
@@ -216,9 +220,10 @@ public class ChessMatch {
 		placeNewPiece('f', 2, new Pawn(board, Color.WHITE));
 		placeNewPiece('g', 2, new Pawn(board, Color.WHITE));
 		placeNewPiece('h', 2, new Pawn(board, Color.WHITE));
-		
+
 		placeNewPiece('a', 8, new Rook(board, Color.BLACK));
 		placeNewPiece('h', 8, new Rook(board, Color.BLACK));
+		placeNewPiece('d', 8, new Queen(board, Color.BLACK));
 		placeNewPiece('e', 8, new King(board, Color.BLACK));
 		placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
 		placeNewPiece('c', 8, new Bishop(board, Color.BLACK));
