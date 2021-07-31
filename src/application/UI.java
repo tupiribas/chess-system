@@ -82,6 +82,9 @@ public class UI {
 		if (chessMatch.isEnPassant()) {
 			System.out.println("MOVIMENT EN PASSANT");
 		}
+		if (chessMatch.isPromotedConfirmation()) {
+			System.out.println("MOVIMENT PROMOTED");
+		}
 	}
 
 	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {

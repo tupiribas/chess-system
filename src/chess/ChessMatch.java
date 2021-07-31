@@ -1,5 +1,6 @@
 package chess;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,8 @@ public class ChessMatch {
 	private boolean castling;
 	private ChessPiece enPassantValnerable;
 	private boolean enPassant;
+	private ChessPiece promoted;
+	private boolean promotedConfirmation;
 
 	private List<Piece> piecesOnTheBoard = new ArrayList<Piece>();
 	private List<Piece> capturedPieces = new ArrayList<Piece>();
@@ -68,6 +71,14 @@ public class ChessMatch {
 		return enPassant;
 	}
 
+	public ChessPiece getPromoted() {
+		return promoted;
+	}
+
+	public boolean isPromotedConfirmation() {
+		return promotedConfirmation;
+	}
+
 	public ChessPiece[][] getPieces() {
 		ChessPiece[][] mat = new ChessPiece[board.getRow()][board.getColumn()];
 		for (int i = 0; i < board.getRow(); i++) {
@@ -96,8 +107,21 @@ public class ChessMatch {
 			throw new ChessException("ERRO cod.:03>>> You can't put yourself in check");
 		}
 
-		// #
 		ChessPiece movedPiece = (ChessPiece) board.piece(target);
+
+		// #Special moviment promoted
+		promoted = null;
+		if (movedPiece instanceof Pawn) {
+			if (movedPiece.getColor() == Color.WHITE && target.getRow() == 0
+					|| movedPiece.getColor() == Color.YELLOW && target.getRow() == 7) {
+				promoted = (ChessPiece) board.piece(target);
+				promoted = replacePromotedPiece("Q");
+				promoted = replacePromotedPiece("B");
+				promoted = replacePromotedPiece("C");
+				promoted = replacePromotedPiece("T");
+				promotedConfirmation = true;
+			}
+		}
 
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 
@@ -118,11 +142,40 @@ public class ChessMatch {
 		return (ChessPiece) capturedPiece;
 	}
 
+	public ChessPiece replacePromotedPiece(String type) {
+		if (promoted == null) {
+			throw new ChessException("Error cod.:010>>> There is a piece to be promoted");
+		}
+		if (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")) {
+			throw new InvalidParameterException("Error cod.:011>>> Invalid type promotion");
+		}
+
+		Position pos = promoted.getChessPosition().toPosition();
+		Piece p = board.removePiece(pos);
+		piecesOnTheBoard.remove(p);
+
+		ChessPiece newPiece = newPiece(type, promoted.getColor());
+		board.placePiece(newPiece, pos);
+		piecesOnTheBoard.add(newPiece);
+		return newPiece;
+	}
+
+	private ChessPiece newPiece(String type, Color color) {
+		if (type.equals("B"))
+			return new Bishop(board, color);
+		if (type.equals("C"))
+			return new Knight(board, color);
+		if (type.equals("Q"))
+			return new Queen(board, color);
+		return new Rook(board, color);
+	}
+
 	private Piece makeMove(Position source, Position target) {
 		ChessPiece p = (ChessPiece) board.removePiece(source);
 		p.increaseMoveCount();
 		castling = false;
 		enPassant = false;
+		promotedConfirmation = false;
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
 
