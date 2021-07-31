@@ -77,7 +77,10 @@ public class UI {
 			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
 		}
 		if (chessMatch.isCastling()) {
-			System.out.println("CASTLING");
+			System.out.println("MOVIMENT CASTLING");
+		}
+		if (chessMatch.isEnPassant()) {
+			System.out.println("MOVIMENT EN PASSANT");
 		}
 	}
 
