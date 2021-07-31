@@ -76,6 +76,9 @@ public class UI {
 			System.out.println("CHECKMATE!");
 			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
 		}
+		if (chessMatch.isCastling()) {
+			System.out.println("CASTLING");
+		}
 	}
 
 	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
