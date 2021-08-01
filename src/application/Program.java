@@ -35,7 +35,7 @@ public class Program {
 				UI.clearScreen();
 				UI.printBoard(chessMatch.getPieces(), possibleMoves);
 				System.out.println();
-				
+
 				System.out.print("Target: ");
 				ChessPosition target = UI.readChessPosition(sc);
 
@@ -44,21 +44,24 @@ public class Program {
 				if (capturedPiece != null) {
 					captured.add(capturedPiece);
 				}
-				
+
 				if (chessMatch.getPromoted() != null) {
 					System.out.print("Enter piece for promotion (B/C/T/Q): ");
 					String type = sc.nextLine().toUpperCase();
+					while (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")) {
+						System.out.print(
+								UI.ANSI_RED + "INVALID \n" + UI.ANSI_RESET + "Enter piece for promotion (B/C/T/Q): ");
+						type = sc.nextLine().toUpperCase();
+					}
 					chessMatch.replacePromotedPiece(type);
 				}
-			} 
-			catch (ChessException e) {
+			} catch (ChessException e) {
 				System.out.println(e.getMessage());
-				System.out.println("Type ENTER TO CONTINUE PLAYING.");
+				System.out.println(UI.ANSI_RED + "Type ENTER TO CONTINUE PLAYING." + UI.ANSI_RESET);
 				sc.nextLine();
-			}
-			catch (InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
-				System.out.println("Type ENTER TO CONTINUE PLAYING.");
+				System.out.println(UI.ANSI_RED + "Type ENTER TO CONTINUE PLAYING." + UI.ANSI_RESET);
 				sc.nextLine();
 			}
 		}
