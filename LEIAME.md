@@ -10,10 +10,10 @@ O objetivo desse jogo é colocar em prática os conhecimentos aprendidos em sala
 
 ### Imagens do jogo:
 
-##### 				Imagem 1:
+##### 										Imagem 1:
 
- <img src="C:\Users\tupyr\AppData\Roaming\Typora\typora-user-images\image-20210801110144208.png" alt="image-20210801110144208" style="zoom: 50%;" />
+ <img src="C:\Users\tupyr\OneDrive\Imagens\Fotoos de anair\aberturachess.png" style="zoom:61%;" />
 
 ##### 				Imagem 2:	
 
- <img src="C:\Users\tupyr\AppData\Roaming\Typora\typora-user-images\image-20210801113720034.png" alt="image-20210801113720034" style="zoom:55%;" />
+ <img src="C:\Users\tupyr\OneDrive\Imagens\Fotoos de anair\imgchesssystem.png" style="zoom:63%;" />

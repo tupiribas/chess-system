@@ -12,11 +12,11 @@ The objective of this game is to put into practice the knowledge learned in the 
 
 ##### 					Image 1:
 
- <img src="C:\Users\tupyr\AppData\Roaming\Typora\typora-user-images\image-20210801110144208.png" alt="image-20210801110144208" style="zoom: 50%;" />
+ <img src="C:\Users\tupyr\OneDrive\Imagens\Fotoos de anair\aberturachess.png" style="zoom:61%;" />
 
 ##### 					Image 2:
 
- <img src="C:\Users\tupyr\AppData\Roaming\Typora\typora-user-images\image-20210801113720034.png" alt="image-20210801113720034" style="zoom:55%;" />
+ <img src="C:\Users\tupyr\OneDrive\Imagens\Fotoos de anair\imgchesssystem.png" style="zoom:63%;" />
 
 
 
